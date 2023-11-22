@@ -1,0 +1,89 @@
+esphome:
+  name: est-poe-32
+  friendly_name: EST-PoE-32
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+# wifi:                             #WiFi cannot be active at the same time as Ethernet, but useful to keep as a fallback
+#   ssid: !secret wifi_ssid
+#   password: !secret wifi_password
+
+#   # Enable fallback hotspot (captive portal) in case wifi connection fails
+#   ap:
+#     ssid: "Est-Poe-32 Fallback Hotspot"
+#     password: "taHUFO8DGHVi"
+
+ethernet:
+  type: LAN8720
+  mdc_pin: GPIO23
+  mdio_pin: GPIO18
+  clk_mode: GPIO17_OUT
+  phy_addr: 0
+  power_pin: GPIO12
+  
+binary_sensor:
+  - platform: gpio
+    name: "Pin 36"
+    pin:
+      number: 36
+      mode: input
+  - platform: gpio
+    name: "Pin 39"
+    pin:
+      number: 39
+      mode: input
+  - platform: gpio
+    name: "Pin 34"
+    pin:
+      number: 34
+      mode: input
+  - platform: gpio
+    name: "Pin 35"
+    pin:
+      number: 35
+      mode: input
+
+switch:
+  - platform: gpio
+    name: "Pin 5"
+    pin: 5
+  - platform: gpio
+    name: "Pin 16"
+    pin: 16
+  - platform: gpio
+    name: "Pin 4"
+    pin: 4
+  - platform: gpio
+    name: "Pin 0"
+    pin: 0
+  - platform: gpio
+    name: "Pin 2"
+    pin: 2
+  - platform: gpio
+    name: "Pin 15"
+    pin: 15
+  - platform: gpio
+    name: "Pin 32"
+    pin: 32
+  - platform: gpio
+    name: "Pin 33"
+    pin: 33
+  - platform: gpio
+    name: "Pin 14"
+    pin: 14
+  - platform: gpio
+    name: "Pin 13"
+    pin: 13
+
+  
