@@ -1,2 +1,2 @@
-# esp32-example-configs
-Example ESPHome configs for ESP32 DevKits
+# ESP32 Example Configs
+Example ESPHome (and others?) configs for ESP32 DevKits
