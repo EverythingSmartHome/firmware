@@ -1,0 +1,110 @@
+esphome:
+  name: est-esp32-c6
+  friendly_name: EST-ESP32-C6
+
+esp32:
+  board: esp32-c6-devkitc-1
+  variant: esp32c6
+  framework:
+    type: esp-idf
+    version: 5.1.1
+    platform_version: 6.4.0
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+esp32_improv:
+  authorizer: none
+
+improv_serial:
+
+wifi:
+  use_address: esp-esp32-c6.birnie.home
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Est-Esp32-C6 Fallback Hotspot"
+    password: "uuVhJqKNKQUS"
+
+sensor:
+  - platform: uptime
+    name: Uptime
+
+switch:
+  - platform: gpio
+    name: "Pin 5"
+    pin: 5
+  - platform: gpio
+    name: "Pin 16"
+    pin: 16
+  - platform: gpio
+    name: "Pin 4"
+    pin: 4
+  - platform: gpio
+    name: "Pin 0"
+    pin: 0
+  - platform: gpio
+    name: "Pin 2"
+    pin: 2
+  - platform: gpio
+    name: "Pin 15"
+    pin: 15
+  - platform: gpio
+    name: "Pin 32"
+    pin: 20
+  - platform: gpio
+    name: "Pin 9"
+    pin: 9
+  - platform: gpio
+    name: "Pin 14"
+    pin: 14
+  - platform: gpio
+    name: "Pin 13"
+    pin: 13
+  - platform: gpio
+    name: "Pin 1"
+    pin: 1
+  - platform: gpio
+    name: "Pin 3"
+    pin: 3
+  - platform: gpio
+    name: "Pin 22"
+    pin: 22
+  - platform: gpio
+    name: "Pin 23"
+    pin: 23
+  - platform: gpio
+    name: "Pin 21"
+    pin: 21
+  - platform: gpio
+    name: "Pin 19"
+    pin: 19
+  - platform: gpio
+    name: "Pin 18"
+    pin: 18
+  - platform: gpio
+    name: "Pin 17"
+    pin: 17
+  - platform: gpio
+    name: "Pin 7"
+    pin: 7
+  - platform: gpio
+    name: "Pin 6"
+    pin: 6
+  - platform: gpio
+    name: "Pin 8"
+    pin: 8
+  - platform: gpio
+    name: "Pin 12"
+    pin: 12
+  - platform: gpio
+    name: "Pin 10"
+    pin: 10
+  - platform: gpio
+    name: "Pin 11"
+    pin: 11
