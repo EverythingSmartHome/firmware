@@ -1,0 +1,31 @@
+esphome:
+  name: est-esp32-devkit
+  friendly_name: est-esp32-devkit
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+wifi:
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Est-Esp32-Devkit"
+    password: "yNfLuPZOSYuL"
+
+captive_portal:
+
+esp32_ble_tracker:
+  scan_parameters:
+    active: true
+
+bluetooth_proxy:
+  active: true

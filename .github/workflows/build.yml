@@ -29,3 +29,23 @@ jobs:
       clean: false
       esphome_version: latest
       directory_name: est-poe-32-all-gpios
+  publish-est-esp32-devkit-bluetooth-proxy:
+    name: Publish EST-ESP32-DevKit Bluetooth Proxy
+    uses: EverythingSmartHome/firmware/.github/workflows/esphome-build.yml@main
+    with:
+      files: EST-ESP32-DevKit/ESPHome/est-esp32-devkit-bluetooth-proxy.yaml
+      name: EST-ESP32-DevKit Bluetooth Proxy
+      manifest_filename: est-esp32-devkit-bluetooth-proxy-manifest.json
+      clean: false
+      esphome_version: latest
+      directory_name: est-esp32-devkit-bluetooth-proxy
+  publish-est-esp32-devkit-all-gpios:
+    name: Publish EST-ESP32-DevKit all GPIOs
+    uses: EverythingSmartHome/firmware/.github/workflows/esphome-build.yml@main
+    with:
+      files: EST-ESP32-DevKit/ESPHome/est-esp32-devkit-all-gpios.yaml
+      name: EST-ESP32-DevKit all GPIOs
+      manifest_filename: est-esp32-devkit-gpios-manifest.json
+      clean: false
+      esphome_version: latest
+      directory_name: est-esp32-devkit-gpios
