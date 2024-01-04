@@ -1,0 +1,21 @@
+name: Build and Publish ESPHome firmware and website
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.yaml'
+
+jobs:
+  publish-est-poe-32-bluetooth-proxy:
+    name: Publish EST-PoE-32 Bluetooth Proxy
+    uses: EverythingSmartHome/firmware/.github/workflows/esphome-build.yml@main
+    with:
+      files: EST-PoE-32/ESPHome/est-poe-32-bluetooth-proxy.yaml
+      name: EST-PoE-32 Bluetooth Proxy
+      manifest_filename: est-poe-32-bluetooth-proxy-manifest.json
+      clean: false
+      esphome_version: latest
+      directory_name: est-poe-32-bluetooth-proxy
