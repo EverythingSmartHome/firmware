@@ -19,3 +19,13 @@ jobs:
       clean: false
       esphome_version: latest
       directory_name: est-poe-32-bluetooth-proxy
+  publish-est-poe-32-all-gpios:
+    name: Publish EST-PoE-32 all GPIOs
+    uses: EverythingSmartHome/firmware/.github/workflows/esphome-build.yml@main
+    with:
+      files: EST-PoE-32/ESPHome/est-poe-32-all-gpios.yaml
+      name: EST-PoE-32 all GPIOs
+      manifest_filename: est-poe-32-all-gpios-manifest.json
+      clean: false
+      esphome_version: latest
+      directory_name: est-poe-32-all-gpios
