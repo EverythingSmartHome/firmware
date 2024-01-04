@@ -1,0 +1,116 @@
+esphome:
+  name: est-esp32-devkit
+  friendly_name: est-esp32-devkit
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+wifi:
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Est-Esp32-Devkit"
+    password: "yNfLuPZOSYuL"
+
+captive_portal:
+
+binary_sensor:
+  - platform: gpio
+    name: "Pin 36"
+    pin:
+      number: 36
+      mode: input
+  - platform: gpio
+    name: "Pin 39"
+    pin:
+      number: 39
+      mode: input
+  - platform: gpio
+    name: "Pin 34"
+    pin:
+      number: 34
+      mode: input
+  - platform: gpio
+    name: "Pin 35"
+    pin:
+      number: 35
+      mode: input
+
+switch:
+  - platform: gpio
+    name: "Pin 5"
+    pin: 5
+  - platform: gpio
+    name: "Pin 16"
+    pin: 16
+  - platform: gpio
+    name: "Pin 4"
+    pin: 4
+  - platform: gpio
+    name: "Pin 0"
+    pin: 0
+  - platform: gpio
+    name: "Pin 2"
+    pin: 2
+  - platform: gpio
+    name: "Pin 15"
+    pin: 15
+  - platform: gpio
+    name: "Pin 32"
+    pin: 32
+  - platform: gpio
+    name: "Pin 33"
+    pin: 33
+  - platform: gpio
+    name: "Pin 14"
+    pin: 14
+  - platform: gpio
+    name: "Pin 13"
+    pin: 13
+  - platform: gpio
+    name: "Pin 1"
+    pin: 1
+  - platform: gpio
+    name: "Pin 3"
+    pin: 3
+  - platform: gpio
+    name: "Pin 22"
+    pin: 22
+  - platform: gpio
+    name: "Pin 23"
+    pin: 23
+  - platform: gpio
+    name: "Pin 21"
+    pin: 21
+  - platform: gpio
+    name: "Pin 19"
+    pin: 19
+  - platform: gpio
+    name: "Pin 18"
+    pin: 18
+  - platform: gpio
+    name: "Pin 17"
+    pin: 17
+  - platform: gpio
+    name: "Pin 25"
+    pin: 25
+  - platform: gpio
+    name: "Pin 26"
+    pin: 26
+  - platform: gpio
+    name: "Pin 27"
+    pin: 27
+  - platform: gpio
+    name: "Pin 12"
+    pin: 12
+
+    
