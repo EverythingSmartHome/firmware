@@ -1,0 +1,9 @@
+{
+  "chipFamily": "ESP32",
+  "parts": [
+    {
+      "path": "est-poe-32-esp32/est-poe-32-esp32.bin",
+      "offset": 0
+    }
+  ]
+}
