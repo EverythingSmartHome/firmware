@@ -1,4 +1,4 @@
-name: Build and Publish ESPHome firmware
+name: Build ESPHome firmware
 
 on:
   workflow_call:
