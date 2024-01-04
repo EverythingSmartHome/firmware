@@ -1,0 +1,9 @@
+{
+  "chipFamily": "ESP32",
+  "parts": [
+    {
+      "path": "est-esp32-devkit-esp32/est-esp32-devkit-esp32.bin",
+      "offset": 0
+    }
+  ]
+}
