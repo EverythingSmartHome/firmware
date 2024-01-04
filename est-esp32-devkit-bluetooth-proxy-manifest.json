@@ -1,0 +1,17 @@
+{
+  "name": "EST-ESP32-DevKit Bluetooth Proxy",
+  "version": "",
+  "home_assistant_domain": "esphome",
+  "new_install_skip_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        {
+          "path": "est-esp32-devkit-bluetooth-proxy/est-esp32-devkit-esp32.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}
