@@ -65,6 +65,7 @@ jobs:
       esphome_version: latest
       directory_name: est-esp32-c6-devkit-gpios
   deploy:
+    if: ${{ always() }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
