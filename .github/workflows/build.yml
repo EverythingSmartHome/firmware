@@ -69,6 +69,7 @@ jobs:
 
       - name: Copy Files from gh-pages Branch
         run: |
+          mkdir _site/
           cp -r gh-pages/* _site/
           cp -r static _site/
           
