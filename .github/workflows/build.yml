@@ -54,3 +54,28 @@ jobs:
       clean: false
       esphome_version: latest
       directory_name: est-esp32-devkit-gpios
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: [publish-est-poe-32-bluetooth-proxy, publish-est-poe-32-all-gpios, publish-est-esp32-devkit-bluetooth-proxy, publish-est-esp32-devkit-all-gpios]
+    steps:
+      - name: Checkout gh-pages Branch
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          path: 'gh-pages'
+
+      - name: Copy Files from gh-pages Branch
+        run: |
+          cp -r gh-pages/* _site/
+          cp -r static _site/
+          
+      - name: Upload artifact
+        # Automatically uploads an artifact from the './_site' directory by default
+        uses: actions/upload-pages-artifact@v2
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
