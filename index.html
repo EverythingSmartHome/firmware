@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Firmware Download</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+        }
+
+        .section {
+            background-color: #1a1a1a;
+            /* Darker background for the section */
+            padding: 15px;
+            border-radius: 10px;
+            /* Rounded corners for the section */
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            /* Drop shadow for the section */
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+        }
+
+        .question-prompt {
+            margin-top: 5px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #bbb;
+        }
+
+        .product {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .platform,
+        .firmware {
+            display: block;
+            background-color: #1a1a1a;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .product label {
+            padding: 10px;
+            border-radius: 5px;
+            background: #242424;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .platform label,
+        .firmware label {
+            display: block;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .label-text {
+            flex-grow: 1;
+            margin-left: 15px;
+        }
+
+        .label-name {
+            font-size: 1.2em;
+        }
+
+        .label-description {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-top: 5px;
+        }
+
+        .config-link {
+            display: block;
+            font-size: 0.8em;
+            color: #888;
+            text-decoration: none;
+            text-align: right;
+            margin-top: 5px;
+        }
+
+        .product label:hover,
+        .platform label:hover,
+        .firmware label:hover,
+        .product label.selected,
+        .platform label.selected,
+        .firmware label.selected {
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        .product img,
+        .platform img,
+        .firmware img {
+            width: 130px;
+            /* Adjust size as needed */
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            /* Rounded corners */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            /* Optional: adds a subtle shadow */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        input[type="radio"]:checked+label {
+            background: #0a0a0a;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Select Your Product and Firmware</h1>
+
+        <div class="section">
+            <div class="question-prompt">Select Your Product:</div>
+            <div class="product">
+                <!-- Replace '#' in src with the actual image paths -->
+                <input type="radio" id="EST-PoE-32" name="product" value="EST-PoE-32" />
+                <label for="EST-PoE-32"><img src="est-poe-32-devkit.jpg" alt="EST-PoE-32" /><br>
+                    EST-PoE-32
+                </label>
+                <input type="radio" id="EST-ESP32-DevKit" name="product" value="EST-ESP32-DevKit" />
+                <label for="EST-ESP32-DevKit"><img src="est-esp32-devkit.jpg" alt="EST-ESP32-DevKit" /><br>
+                    EST-ESP32-DevKit
+                </label>
+                <input type="radio" id="EST-ESP32-C6-DevKit" name="product" value="EST-ESP32-C6-DevKit" />
+                <label for="EST-ESP32-C6-DevKit"><img src="est-esp32-c6-devkit.jpg" alt="EST-ESP32-C6-DevKit" /><br>
+                    EST-ESP32-C6-DevKit
+                </label>
+                <input type="radio" id="everything-presence-one" name="product" value="EverythingPresenceOne" />
+                <label for="everything-presence-one"><img src="everything-presence-one.png"
+                        alt="Everything Presence One" /><br>
+                    Everything Presence One
+                </label>
+                <input type="radio" id="everything-presence-lite" name="product" value="EverythingPresenceLite" />
+                <label for="everything-presence-lite"><img src="everything-presence-lite.jpg"
+                        alt="Everything Presence Lite" /><br>
+                    Everything Presence Lite
+                </label>
+            </div>
+        </div>
+
+
+        <div id="platformOptions" class="hidden section platform">
+        </div>
+
+        <div id="firmwareOptions" class="hidden section firmware">
+        </div>
+
+        <esp-web-install-button class="hidden"></esp-web-install-button>
+    </div>
+
+    <script type="module" src="https://unpkg.com/esp-web-tools@9/dist/web/install-button.js?module"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const firmwareOptions = {
+                "EST-PoE-32": [
+                    { name: "Bluetooth Proxy", description: "Create an ethernet based Bluetooth Proxy to allow Home Assistant to control Bluetooth devices", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-PoE-32/ESPHome/est-poe-32-bluetooth-proxy.yaml", manifest: "path_to_manifest_1.json" },
+                    { name: "Input/Output", description: "This example turns all of the spare GPIOs to toggle switches in Home Assistant, or binary sensors for the input only pins.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-PoE-32/ESPHome/est-poe-32-bluetooth-proxy.yaml", manifest: "path_to_manifest_2.json" }
+                ],
+                "EST-ESP32-DevKit": [
+                    { name: "Bluetooth Proxy", description: "Create an ethernet based Bluetooth Proxy to allow Home Assistant to control Bluetooth devices", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-ESP32-DevKit/ESPHome/est-esp32-devkit-bluetooth-proxy.yaml", manifest: "path_to_manifest_3.json" },
+                    { name: "Input/Output", description: "This example turns all of the spare GPIOs to toggle switches in Home Assistant, or binary sensors for the input only pins.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-ESP32-DevKit/ESPHome/est-esp32-devkit-all-gpios.yaml", manifest: "path_to_manifest_4.json" }
+                ],
+                "EST-ESP32-C6-DevKit": [
+                    { name: "Input/Output", description: "This example turns all of the spare GPIOs to toggle switches in Home Assistant, or binary sensors for the input only pins.", configUrl: "https://github.com/EverythingSmartHome/firmware/tree/main/EST-ESP32-C6-DevKit/ESPHome", manifest: "path_to_manifest_5.json" }
+                ],
+                "EverythingPresenceOne": {
+                    "Home Assistant": [
+                        { name: "Stable", description: "Stable firmware for the Everything Presence One to integrate directly with Home Assistant.", configUrl: "https://github.com/EverythingSmartHome/everything-presence-one/blob/main/everything-presence-one.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-one/everything-presence-one-manifest.json" },
+                        { name: "Beta", description: "Beta firmware for the Everything Presence One to integrate directly with Home Assistant. Only use if you don't mind some bugs but want the latest features", configUrl: "https://github.com/EverythingSmartHome/everything-presence-one/blob/main/everything-presence-one-beta.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-one/everything-presence-one-ha-beta-manifest.json" }
+                    ],
+                    "SmartThings": [
+                        { name: "Stable", description: "Stable firmware for the Everything Presence One to integrate directly with SmartThings.", configUrl: "https://github.com/EverythingSmartHome/everything-presence-one/blob/main/everything-presence-one-st.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-one/everything-presence-one-st-manifest.json" }
+                    ]
+                },
+                "EverythingPresenceLite": {
+                    "Home Assistant": [
+                        { name: "Stable (Bluetooth Proxy)", description: "Choose this option to enable Bluetooth Proxy and Improv. Can cause connectivity issues with WiFi.", configUrl: "https://github.com/EverythingSmartHome/everything-presence-lite/blob/main/everything-presence-lite-ha.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-lite/everything-presence-lite-ha-manifest.json" },
+                        { name: "Stable (No Bluetooth)", description: "Choose this option to disable Bluetooth Proxy and Improv, which can improve stability of the WiFi connection and/or you don't need Bluetooth Proxy.", configUrl: "https://github.com/EverythingSmartHome/everything-presence-lite/blob/main/everything-presence-lite-ha-no-ble.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-lite/everything-presence-lite-ha-no-ble-manifest.json" }
+                    ]
+                }
+            };
+
+            function handlePlatformAndFirmwareSelection(container, radio) {
+                container.querySelectorAll('label').forEach(label => label.classList.remove('selected'));
+                const selectedLabel = radio.parentElement;
+                selectedLabel.classList.add('selected');
+            }
+
+            document.querySelectorAll('.product input[type="radio"]').forEach(radio => {
+                radio.addEventListener("change", function () {
+                    const selectedProduct = this.value;
+                    const platformContainer = document.getElementById("platformOptions");
+                    const firmwareContainer = document.getElementById("firmwareOptions");
+                    const installButton = document.querySelector("esp-web-install-button");
+
+                    platformContainer.innerHTML = '<div class="question-prompt">Now select the platform:</div>';
+                    firmwareContainer.innerHTML = '';
+                    platformContainer.classList.add("hidden");
+                    firmwareContainer.classList.add("hidden");
+                    installButton.classList.add("hidden");
+
+                    // Check if the selected product has platform options
+                    if (typeof firmwareOptions[selectedProduct] === 'object' && !Array.isArray(firmwareOptions[selectedProduct])) {
+                        Object.keys(firmwareOptions[selectedProduct]).forEach(platform => {
+                            // Create and append platform options
+                            const platformLabel = document.createElement('label');
+                            const platformRadio = document.createElement('input');
+                            platformRadio.type = 'radio';
+                            platformRadio.name = 'platform';
+                            platformRadio.id = platform;
+                            platformRadio.value = platform;
+                            platformLabel.setAttribute('for', platform);
+                            platformLabel.textContent = platform;
+                            platformLabel.insertBefore(platformRadio, platformLabel.firstChild);
+
+                            platformLabel.addEventListener("click", function () {
+                                // When a platform is selected, populate firmware options
+                                platformRadio.checked = true;
+                                handlePlatformAndFirmwareSelection(platformContainer, platformRadio);
+                                populateFirmwareOptions(selectedProduct, platform);
+                            });
+
+                            platformContainer.appendChild(platformLabel);
+                        });
+                        platformContainer.classList.remove("hidden");
+                    } else if (Array.isArray(firmwareOptions[selectedProduct])) {
+                        populateFirmwareOptions(selectedProduct);
+                    }
+                });
+            });
+
+            function populateFirmwareOptions(product, platform = null) {
+                const firmwareContainer = document.getElementById("firmwareOptions");
+                const installButton = document.querySelector("esp-web-install-button");
+                firmwareContainer.innerHTML = '<div class="question-prompt">Now select the firmware:</div>';
+                firmwareContainer.classList.remove("hidden");
+                installButton.classList.add("hidden");
+
+                let options = platform ? firmwareOptions[product][platform] : firmwareOptions[product];
+                options.forEach(option => {
+                    const firmwareLabel = document.createElement('label');
+                    const firmwareRadio = document.createElement('input');
+                    firmwareRadio.type = 'radio';
+                    firmwareRadio.name = 'firmware';
+                    firmwareRadio.id = option.name;
+                    firmwareRadio.value = option.manifest;
+
+                    const nameDiv = document.createElement('div');
+                    nameDiv.classList.add('label-name');
+                    nameDiv.textContent = option.name;
+
+                    const descDiv = document.createElement('div');
+                    descDiv.classList.add('label-description');
+                    descDiv.textContent = option.description;
+
+                    const configLink = document.createElement('a');
+                    configLink.href = option.configUrl;
+                    configLink.textContent = 'View Config';
+                    configLink.target = '_blank';
+                    configLink.classList.add('config-link');
+
+                    firmwareLabel.appendChild(firmwareRadio);
+                    firmwareLabel.appendChild(nameDiv);
+                    firmwareLabel.appendChild(descDiv);
+                    firmwareLabel.appendChild(configLink);
+
+                    firmwareLabel.addEventListener("click", function () {
+                        firmwareRadio.checked = true;
+                        handlePlatformAndFirmwareSelection(firmwareContainer, firmwareRadio);
+                        installButton.setAttribute("manifest", option.manifest);
+                        installButton.classList.remove("hidden");
+                    });
+
+                    firmwareContainer.appendChild(firmwareLabel);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
