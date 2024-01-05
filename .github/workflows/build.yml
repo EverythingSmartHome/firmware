@@ -8,6 +8,11 @@ on:
     paths:
       - '**.yaml'
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   publish-est-poe-32-bluetooth-proxy:
     name: Publish EST-PoE-32 Bluetooth Proxy
