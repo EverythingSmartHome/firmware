@@ -87,7 +87,7 @@ jobs:
           sed -i 's/${{ needs.build.outputs.esphome-build-name }}\//${{ inputs.directory_name }}\//g' output/${{ inputs.manifest_filename }}
 
 
-      #- run: cp -R static/* output
+      - run: cp -R static/* output
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.4.1
