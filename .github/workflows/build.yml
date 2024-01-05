@@ -71,7 +71,7 @@ jobs:
         run: |
           mkdir _site/
           cp -r gh-pages/* _site/
-          cp -r static _site/
+          ls -lah
           
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
