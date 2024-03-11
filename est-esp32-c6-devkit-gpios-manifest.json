@@ -1,0 +1,17 @@
+{
+  "name": "EST-ESP32-C6-DevKit all GPIOs",
+  "version": "",
+  "home_assistant_domain": "esphome",
+  "new_install_skip_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP32-C6",
+      "parts": [
+        {
+          "path": "est-esp32-c6-devkit-gpios/est-esp32-c6-esp32c6.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}

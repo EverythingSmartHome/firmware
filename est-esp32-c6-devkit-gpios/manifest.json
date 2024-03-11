@@ -1,0 +1,9 @@
+{
+  "chipFamily": "ESP32-C6",
+  "parts": [
+    {
+      "path": "est-esp32-c6-esp32c6/est-esp32-c6-esp32c6.bin",
+      "offset": 0
+    }
+  ]
+}
