@@ -21,7 +21,6 @@ ota:
 improv_serial:
 
 wifi:
-  use_address: esp-esp32-c6.birnie.home
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
