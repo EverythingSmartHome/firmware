@@ -14,6 +14,7 @@ logger:
 api:
 
 ota:
+  - platform: esphome
 
 # wifi:                             #WiFi cannot be active at the same time as Ethernet, but useful to keep as a fallback
 #   ssid: !secret wifi_ssid
