@@ -1,0 +1,21 @@
+{
+  "name": "EST-PoE-32 GPIO Expander",
+  "version": "",
+  "home_assistant_domain": "esphome",
+  "new_install_skip_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "ota": {
+        "path": "est-poe-32-gpio-expander/est-poe-32-gpio-expander-esp32.ota.bin",
+        "md5": "9ee35e7dc43e587b89b9f0f1c9777259"
+      },
+      "parts": [
+        {
+          "path": "est-poe-32-gpio-expander/est-poe-32-gpio-expander-esp32.factory.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}
