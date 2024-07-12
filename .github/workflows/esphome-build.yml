@@ -40,7 +40,9 @@ jobs:
       - id: files-array
         run: |
           files=$(echo "${{ inputs.files }}" | jq -Rcn 'inputs | . / ","')
-          echo "files=$files" >> $GITHUB_ENV
+          echo "$files" > files_output.txt
+      - id: set-output
+        run: echo "files=$(<files_output.txt)" >> $GITHUB_ENV
 
   build:
     name: Build ESPHome binary for ${{ matrix.file }}
@@ -48,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        file: ${{ fromJson(needs.prepare.outputs.files) }}
+        file: ${{ fromJson(env.files) }}
     outputs:
       esphome-version: ${{ steps.esphome-build.outputs.esphome-version }}
       esphome-build-name: ${{ steps.esphome-build.outputs.name }}
