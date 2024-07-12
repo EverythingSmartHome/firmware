@@ -6,9 +6,13 @@
   "builds": [
     {
       "chipFamily": "ESP32",
+      "ota": {
+        "path": "est-poe-32-all-gpios/est-poe-32-esp32.ota.bin",
+        "md5": "d438895a38959e41a3ac5c2192547c36"
+      },
       "parts": [
         {
-          "path": "est-poe-32-all-gpios/est-poe-32-esp32.bin",
+          "path": "est-poe-32-all-gpios/est-poe-32-esp32.factory.bin",
           "offset": 0
         }
       ]
