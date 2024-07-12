@@ -8,7 +8,7 @@ esp32:
   framework:
     type: esp-idf
     version: 5.1.2
-    platform_version: https://github.com/platformio/platform-espressif32
+    platform_version: 6.5.0
 
 # Enable logging
 logger:
