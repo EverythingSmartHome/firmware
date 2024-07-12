@@ -8,7 +8,7 @@
       "chipFamily": "ESP32",
       "ota": {
         "path": "est-esp32-devkit-bluetooth-proxy/est-esp32-devkit-esp32.ota.bin",
-        "md5": "bcedc94d3ee7ee8e984d6f8dcbfd1dd5"
+        "md5": "48824bd2b0beb6efbe9adb9f2cb80a89"
       },
       "parts": [
         {
