@@ -8,7 +8,7 @@
       "chipFamily": "ESP32",
       "ota": {
         "path": "est-esp32-devkit-esp32.ota.bin",
-        "md5": "8781f24457e46734d2589b8c6dd2956b"
+        "md5": "46794c7b64500ba04dc7de275e7a4a67"
       },
       "parts": [
         {
