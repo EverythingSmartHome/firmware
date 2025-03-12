@@ -7,12 +7,12 @@
     {
       "chipFamily": "ESP32",
       "ota": {
-        "path": "est-esp32-devkit-gpios/est-esp32-devkit-esp32.ota.bin",
-        "md5": "67b54eb7411e4a047d5034d5325e75e8"
+        "path": "est-esp32-devkit-esp32.ota.bin",
+        "md5": "1ffd45a9ae8f5a2bbd63c118bcabdd47"
       },
       "parts": [
         {
-          "path": "est-esp32-devkit-gpios/est-esp32-devkit-esp32.factory.bin",
+          "path": "est-esp32-devkit-esp32.factory.bin",
           "offset": 0
         }
       ]
