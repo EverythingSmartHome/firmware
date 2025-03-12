@@ -7,12 +7,12 @@
     {
       "chipFamily": "ESP32",
       "ota": {
-        "path": "est-poe-32-all-gpios/est-poe-32-esp32.ota.bin",
-        "md5": "7186a34d9e3701618a5c18e9efe0fa14"
+        "path": "est-poe-32-esp32.ota.bin",
+        "md5": "6a08a7d88c3d721b6f485de2486ac779"
       },
       "parts": [
         {
-          "path": "est-poe-32-all-gpios/est-poe-32-esp32.factory.bin",
+          "path": "est-poe-32-esp32.factory.bin",
           "offset": 0
         }
       ]
