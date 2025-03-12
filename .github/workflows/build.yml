@@ -83,7 +83,7 @@ jobs:
     needs: [publish-est-poe-32-bluetooth-proxy, publish-est-poe-32-all-gpios, publish-est-esp32-devkit-bluetooth-proxy, publish-est-esp32-devkit-all-gpios, publish-est-esp32-c6-devkit-all-gpios]
     steps:
       - name: Checkout gh-pages Branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: gh-pages
           path: 'gh-pages'
@@ -96,8 +96,8 @@ jobs:
           
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v4
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
