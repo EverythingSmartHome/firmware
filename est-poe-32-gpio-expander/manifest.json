@@ -2,7 +2,7 @@
   "chipFamily": "ESP32",
   "ota": {
     "path": "est-poe-32-gpio-expander-esp32.ota.bin",
-    "md5": "4f5a63d3883d3e02d0af113df5c242cf"
+    "md5": "743632a1de7aa964227f7f889f844007"
   },
   "parts": [
     {
