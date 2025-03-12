@@ -2,7 +2,7 @@
   "chipFamily": "ESP32",
   "ota": {
     "path": "est-poe-32-esp32.ota.bin",
-    "md5": "5a8f07ebd619b58b6de5dcca2b29b7d1"
+    "md5": "ccbd0956b343fa3b525487e5b0c167be"
   },
   "parts": [
     {
