@@ -7,12 +7,12 @@
     {
       "chipFamily": "ESP32",
       "ota": {
-        "path": "est-poe-32-bluetooth-proxy/est-poe-32-esp32.ota.bin",
-        "md5": "4c6fad6e24fd944ed68f777d94df8adc"
+        "path": "est-poe-32-esp32.ota.bin",
+        "md5": "dc02b16f1338d4b876b9ed26d87e3655"
       },
       "parts": [
         {
-          "path": "est-poe-32-bluetooth-proxy/est-poe-32-esp32.factory.bin",
+          "path": "est-poe-32-esp32.factory.bin",
           "offset": 0
         }
       ]
