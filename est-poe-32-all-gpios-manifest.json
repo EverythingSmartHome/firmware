@@ -1,21 +1,18 @@
 {
+  "chipFamily": "ESP32",
+  "ota": {
+    "path": "est-poe-32-esp32.ota.bin",
+    "md5": "05e70f8961b91534794f3bd1f599d819"
+  },
+  "parts": [
+    {
+      "path": "est-poe-32-esp32.factory.bin",
+      "offset": 0
+    }
+  ],
   "name": "EST-PoE-32 all GPIOs",
   "version": "",
   "home_assistant_domain": "esphome",
   "new_install_skip_erase": false,
-  "builds": [
-    {
-      "chipFamily": "ESP32",
-      "ota": {
-        "path": "est-poe-32-esp32.ota.bin",
-        "md5": "f15700fa2f9f1bb59052b10e7c71c714"
-      },
-      "parts": [
-        {
-          "path": "est-poe-32-esp32.factory.bin",
-          "offset": 0
-        }
-      ]
-    }
-  ]
+  "builds": []
 }

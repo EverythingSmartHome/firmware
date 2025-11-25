@@ -87,6 +87,15 @@
         .panel h2 {
             margin: 0 0 12px;
             font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hint {
+            color: var(--muted);
+            font-size: 13px;
+            margin: 6px 0 0;
         }
 
         .product-grid {
@@ -211,6 +220,100 @@
             margin-top: 10px;
         }
 
+        .code-panel {
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            overflow: visible;
+            font-family: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+            font-size: 13px;
+            color: #dfe7f5;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+            white-space: pre;
+        }
+
+        .inline-link {
+            color: var(--accent-2);
+            font-size: 12px;
+            text-decoration: none;
+            margin-top: 6px;
+            display: inline-flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .option-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .option-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .view-btn {
+            background: linear-gradient(120deg, rgba(124, 231, 177, 0.9), rgba(90, 182, 255, 0.9));
+            color: #0b0d11;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            white-space: nowrap;
+        }
+
+        .view-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .copy-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .copy-btn {
+            background: linear-gradient(120deg, rgba(124, 231, 177, 0.9), rgba(90, 182, 255, 0.9));
+            color: #0b0d11;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .copy-msg {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .flash {
+            animation: flash 0.6s ease;
+        }
+
+        @keyframes flash {
+            0% {
+                box-shadow: 0 0 0 0 rgba(124, 231, 177, 0.35);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(124, 231, 177, 0);
+            }
+        }
+
         esp-web-install-button {
             width: 100%;
             --esp-tools-button-color: var(--accent);
@@ -244,9 +347,20 @@
         <div id="firmwarePanel" class="panel hidden">
             <h2>Choose firmware</h2>
             <div id="firmwareOptions" class="stack"></div>
+            <p class="hint">Tip: click “View YAML” on an option to see the full ESPHome config without leaving the page.</p>
             <div class="actions">
                 <esp-web-install-button class="hidden"></esp-web-install-button>
             </div>
+        </div>
+
+        <div id="codePanel" class="panel hidden">
+            <h2>Config preview</h2>
+            <div class="copy-row">
+                <span id="copyMsg" class="copy-msg"></span>
+                <button id="copyBtn" class="copy-btn" type="button">Copy YAML</button>
+            </div>
+            <div id="codeContainer" class="code-panel">Select “View YAML” to preview the configuration.</div>
+            <p class="hint">Copy/paste this into your own ESPHome project, or open the GitHub link above to view it there.</p>
         </div>
     </div>
 
@@ -281,9 +395,10 @@
                 id: "EST-ESP32-C6-DevKit",
                 name: "EST-ESP32-C6-DevKit",
                 tag: "ESP32-C6 · Wi-Fi 6",
-                description: "Wi-Fi 6 dev kit with GPIO example firmware.",
+                description: "Wi-Fi 6 dev kit with GPIO demo and Bluetooth Proxy.",
                 image: "est-esp32-c6-devkit.jpg",
                 options: [
+                    { name: "Bluetooth Proxy", description: "BLE proxy over Wi-Fi using ESP-IDF.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-ESP32-C6-DevKit/ESPHome/est-esp32-c6-devkit-bluetooth-proxy.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-esp32-c6-devkit-bluetooth-proxy-manifest.json" },
                     { name: "Input/Output", description: "GPIOs exposed as switches/binary sensors.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-ESP32-C6-DevKit/ESPHome/est-esp32-c6-devkit-all-gpios.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-esp32-c6-devkit-gpios-manifest.json" }
                 ]
             },
@@ -335,13 +450,20 @@
         const firmwarePanel = document.getElementById('firmwarePanel');
         const firmwareOptions = document.getElementById('firmwareOptions');
         const installButton = document.querySelector('esp-web-install-button');
+        const codePanel = document.getElementById('codePanel');
+        const codeContainer = document.getElementById('codeContainer');
+        const copyBtn = document.getElementById('copyBtn');
+        const copyMsg = document.getElementById('copyMsg');
 
         function resetPanels() {
             platformPanel.classList.add('hidden');
             firmwarePanel.classList.add('hidden');
+            codePanel.classList.add('hidden');
             platformOptions.innerHTML = '';
             firmwareOptions.innerHTML = '';
             installButton.classList.add('hidden');
+            codeContainer.textContent = 'Select “View YAML” to preview the configuration.';
+            copyMsg.textContent = '';
         }
 
         function createProductCards() {
@@ -432,6 +554,8 @@
 
         function populateFirmwareOptions(product, platform = null) {
             firmwareOptions.innerHTML = '';
+            codePanel.classList.add('hidden');
+            codeContainer.textContent = 'Select “View YAML” to preview the configuration.';
             const options = platform ? product.platforms[platform] : product.options;
             options.forEach((option) => {
                 const row = document.createElement('div');
@@ -443,7 +567,8 @@
                 input.id = option.name;
                 input.value = option.manifest;
 
-                const info = document.createElement('div');
+                const body = document.createElement('div');
+                body.classList.add('option-body');
                 const title = document.createElement('strong');
                 title.textContent = option.name;
                 const desc = document.createElement('span');
@@ -452,21 +577,45 @@
                 link.href = option.configUrl;
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';
-                link.textContent = 'View config on GitHub';
+                link.classList.add('inline-link');
+                link.textContent = 'Open on GitHub';
+                body.appendChild(title);
+                body.appendChild(desc);
+                body.appendChild(link);
 
-                info.appendChild(title);
-                info.appendChild(desc);
-                info.appendChild(link);
+                const actions = document.createElement('div');
+                actions.classList.add('option-actions');
+                const viewBtn = document.createElement('button');
+                viewBtn.type = 'button';
+                viewBtn.classList.add('view-btn');
+                viewBtn.textContent = 'View Config';
+                actions.appendChild(viewBtn);
 
                 row.appendChild(input);
-                row.appendChild(info);
+                row.appendChild(body);
+                row.appendChild(actions);
 
-                row.addEventListener('click', () => {
+                const selectRow = () => {
                     document.querySelectorAll('#firmwareOptions .option').forEach(el => el.classList.remove('selected'));
                     row.classList.add('selected');
                     input.checked = true;
                     installButton.setAttribute('manifest', option.manifest);
                     installButton.classList.remove('hidden');
+                };
+
+                row.addEventListener('click', () => {
+                    selectRow();
+                });
+
+                viewBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    selectRow();
+                    fetchConfig(option.configUrl);
+                });
+
+                link.addEventListener('click', (e) => {
+                    e.stopPropagation();
                 });
 
                 firmwareOptions.appendChild(row);
@@ -482,6 +631,47 @@
                 populateFirmwareOptions(product);
             }
         }
+
+        function toRawUrl(url) {
+            if (!url.includes('github.com')) return url;
+            return url
+                .replace('https://github.com/', 'https://raw.githubusercontent.com/')
+                .replace('/blob/', '/')
+                .replace('/tree/', '/');
+        }
+
+        async function fetchConfig(url) {
+            codeContainer.textContent = 'Loading YAML...';
+            codePanel.classList.remove('hidden');
+            try {
+                const res = await fetch(toRawUrl(url));
+                if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+                const text = await res.text();
+                codeContainer.textContent = text;
+                copyMsg.textContent = '';
+                codePanel.classList.add('flash');
+                setTimeout(() => codePanel.classList.remove('flash'), 600);
+                codePanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } catch (err) {
+                codeContainer.textContent = `Unable to load YAML (${err.message}).`;
+                copyMsg.textContent = '';
+            }
+        }
+
+        copyBtn.addEventListener('click', async () => {
+            const text = codeContainer.textContent || '';
+            if (!text.trim()) {
+                copyMsg.textContent = 'Load a config first.';
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(text);
+                copyMsg.textContent = 'Copied!';
+                setTimeout(() => (copyMsg.textContent = ''), 1500);
+            } catch (err) {
+                copyMsg.textContent = 'Clipboard not available.';
+            }
+        });
 
         createProductCards();
     </script>
