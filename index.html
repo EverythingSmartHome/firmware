@@ -2,132 +2,201 @@
 <html>
 
 <head>
-    <title>Firmware Download</title>
+    <title>EST Firmware Installer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #0b0d11;
+            --panel: rgba(255, 255, 255, 0.06);
+            --panel-strong: rgba(255, 255, 255, 0.1);
+            --text: #e8ecf1;
+            --muted: #9aa4b5;
+            --accent: #7ce7b1;
+            --accent-2: #5ab6ff;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
             margin: 0;
-            padding: 0;
-            color: #fff;
-            line-height: 1.6;
+            min-height: 100vh;
+            background: radial-gradient(circle at 20% 20%, rgba(90, 182, 255, 0.1), transparent 25%),
+                radial-gradient(circle at 80% 10%, rgba(124, 231, 177, 0.12), transparent 30%),
+                radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.05), transparent 35%),
+                var(--bg);
+            color: var(--text);
+            font-family: 'Space Grotesk', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            padding: 48px 20px 64px;
         }
 
-        .container {
-            max-width: 700px;
-            margin: 30px auto;
-            padding: 20px;
-            background: #1e1e1e;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+        .shell {
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
-        .section {
-            background-color: #1a1a1a;
-            /* Darker background for the section */
-            padding: 15px;
-            border-radius: 10px;
-            /* Rounded corners for the section */
-            margin-bottom: 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            /* Drop shadow for the section */
+        header {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            width: fit-content;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--muted);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         h1 {
-            text-align: center;
-            color: #fff;
+            margin: 0;
+            font-size: clamp(28px, 3vw, 38px);
+            letter-spacing: -0.5px;
         }
 
-        .question-prompt {
-            margin-top: 5px;
-            margin-bottom: 15px;
-            font-weight: bold;
-            color: #bbb;
+        .lede {
+            margin: 0;
+            color: var(--muted);
+            max-width: 760px;
+            line-height: 1.5;
         }
 
-        .product {
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 16px;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .panel h2 {
+            margin: 0 0 12px;
+            font-size: 18px;
+        }
+
+        .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+            background: linear-gradient(140deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+            border: 1px solid var(--border);
+            padding: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(124, 231, 177, 0.4);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .card.selected {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px rgba(124, 231, 177, 0.35);
+        }
+
+        .thumb {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            border-radius: 10px;
+            object-fit: cover;
+            background: var(--panel-strong);
+            border: 1px solid var(--border);
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            margin: 0 0 4px;
+            font-size: 16px;
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 13px;
+            margin: 0 0 6px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: rgba(90, 182, 255, 0.12);
+            color: #9bd2ff;
+            font-size: 12px;
+            border: 1px solid rgba(90, 182, 255, 0.25);
+            margin-top: 4px;
+        }
+
+        .stack {
+            display: flex;
+            flex-direction: column;
             gap: 10px;
         }
 
-        .platform,
-        .firmware {
-            display: block;
-            background-color: #1a1a1a;
-            padding: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        }
-
-        .product label {
-            padding: 10px;
-            border-radius: 5px;
-            background: #242424;
+        .option {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
             cursor: pointer;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            transition: border-color 0.2s ease, transform 0.2s ease;
         }
 
-        .platform label,
-        .firmware label {
+        .option:hover {
+            transform: translateY(-1px);
+            border-color: var(--accent-2);
+        }
+
+        .option.selected {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px rgba(124, 231, 177, 0.35);
+        }
+
+        .option strong {
             display: block;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #1e1e1e;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 15px;
         }
 
-        .label-text {
-            flex-grow: 1;
-            margin-left: 15px;
+        .option span {
+            color: var(--muted);
+            font-size: 13px;
         }
 
-        .label-name {
-            font-size: 1.2em;
-        }
-
-        .label-description {
-            font-size: 0.9em;
-            color: #ccc;
-            margin-top: 5px;
-        }
-
-        .config-link {
-            display: block;
-            font-size: 0.8em;
-            color: #888;
+        .option a {
+            color: var(--accent-2);
+            font-size: 12px;
             text-decoration: none;
-            text-align: right;
-            margin-top: 5px;
-        }
-
-        .product label:hover,
-        .platform label:hover,
-        .firmware label:hover,
-        .product label.selected,
-        .platform label.selected,
-        .firmware label.selected {
-            background: #0a0a0a;
-            color: #fff;
-        }
-
-        .product img,
-        .platform img,
-        .firmware img {
-            width: 130px;
-            /* Adjust size as needed */
-            height: auto;
-            margin-bottom: 10px;
-            border-radius: 10px;
-            /* Rounded corners */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            /* Optional: adds a subtle shadow */
+            margin-top: 6px;
+            display: inline-flex;
+            gap: 6px;
+            align-items: center;
         }
 
         .hidden {
@@ -138,185 +207,283 @@
             display: none;
         }
 
-        input[type="radio"]:checked+label {
-            background: #0a0a0a;
-            color: #fff;
+        .actions {
+            margin-top: 10px;
+        }
+
+        esp-web-install-button {
+            width: 100%;
+            --esp-tools-button-color: var(--accent);
+            --esp-tools-button-text-color: #0a0d0f;
+            --esp-tools-border-radius: 12px;
+            --esp-tools-primary-bg: linear-gradient(120deg, #7ce7b1, #5ab6ff);
+            --esp-tools-button-hover-color: #fff;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Select Your Product and Firmware</h1>
+    <div class="shell">
+        <header>
+            <div class="eyebrow">EST DevBoards · ESPHome</div>
+            <h1>Flash ready-to-use firmware onto your EST boards</h1>
+            <p class="lede">Select the board you have, pick the firmware profile, and flash via Web Serial. All
+                configs are linked so you can remix them for your own projects.</p>
+        </header>
 
-        <div class="section">
-            <div class="question-prompt">Select Your Product:</div>
-            <div class="product">
-                <!-- Replace '#' in src with the actual image paths -->
-                <input type="radio" id="EST-PoE-32" name="product" value="EST-PoE-32" />
-                <label for="EST-PoE-32"><img src="est-poe-32-devkit.jpg" alt="EST-PoE-32" /><br>
-                    EST-PoE-32
-                </label>
-                <input type="radio" id="EST-ESP32-DevKit" name="product" value="EST-ESP32-DevKit" />
-                <label for="EST-ESP32-DevKit"><img src="est-esp32-devkit.jpg" alt="EST-ESP32-DevKit" /><br>
-                    EST-ESP32-DevKit
-                </label>
-                <input type="radio" id="EST-ESP32-C6-DevKit" name="product" value="EST-ESP32-C6-DevKit" />
-                <label for="EST-ESP32-C6-DevKit"><img src="est-esp32-c6-devkit.jpg" alt="EST-ESP32-C6-DevKit" /><br>
-                    EST-ESP32-C6-DevKit
-                </label>
-                <input type="radio" id="everything-presence-one" name="product" value="EverythingPresenceOne" />
-                <label for="everything-presence-one"><img src="everything-presence-one.png"
-                        alt="Everything Presence One" /><br>
-                    Everything Presence One
-                </label>
-                <input type="radio" id="everything-presence-lite" name="product" value="EverythingPresenceLite" />
-                <label for="everything-presence-lite"><img src="everything-presence-lite.jpg"
-                        alt="Everything Presence Lite" /><br>
-                    Everything Presence Lite
-                </label>
+        <div class="panel">
+            <h2>Choose your board</h2>
+            <div id="productGrid" class="product-grid"></div>
+        </div>
+
+        <div id="platformPanel" class="panel hidden">
+            <h2>Choose platform</h2>
+            <div id="platformOptions" class="stack"></div>
+        </div>
+
+        <div id="firmwarePanel" class="panel hidden">
+            <h2>Choose firmware</h2>
+            <div id="firmwareOptions" class="stack"></div>
+            <div class="actions">
+                <esp-web-install-button class="hidden"></esp-web-install-button>
             </div>
         </div>
-
-
-        <div id="platformOptions" class="hidden section platform">
-        </div>
-
-        <div id="firmwareOptions" class="hidden section firmware">
-        </div>
-
-        <esp-web-install-button class="hidden"></esp-web-install-button>
     </div>
 
     <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const firmwareOptions = {
-                "EST-PoE-32": [
-                    { name: "Bluetooth Proxy", description: "Create an ethernet based Bluetooth Proxy to allow Home Assistant to control Bluetooth devices", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-PoE-32/ESPHome/est-poe-32-bluetooth-proxy.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-poe-32-bluetooth-proxy-manifest.json" },
-                    { name: "Input/Output", description: "This example turns all of the spare GPIOs to toggle switches in Home Assistant, or binary sensors for the input only pins.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-PoE-32/ESPHome/est-poe-32-all-gpios.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-poe-32-all-gpios-manifest.json" },
-                    { name: "GPIO Expander", description: "This demonstrates how to use the GPIO expander with the EST-PoE-32.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-PoE-32/ESPHome/est-poe-32-gpio-expander.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-poe-32-gpio-expander-manifest.json" }
-                ],
-                "EST-ESP32-DevKit": [
-                    { name: "Bluetooth Proxy", description: "Create an ethernet based Bluetooth Proxy to allow Home Assistant to control Bluetooth devices", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-ESP32-DevKit/ESPHome/est-esp32-devkit-bluetooth-proxy.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-esp32-devkit-bluetooth-proxy-manifest.json" },
-                    { name: "Input/Output", description: "This example turns all of the spare GPIOs to toggle switches in Home Assistant, or binary sensors for the input only pins.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-ESP32-DevKit/ESPHome/est-esp32-devkit-all-gpios.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-esp32-devkit-gpios-manifest.json" }
-                ],
-                "EST-ESP32-C6-DevKit": [
-                    { name: "Input/Output", description: "This example turns all of the spare GPIOs to toggle switches in Home Assistant, or binary sensors for the input only pins.", configUrl: "https://github.com/EverythingSmartHome/firmware/tree/main/EST-ESP32-C6-DevKit/ESPHome", manifest: "https://everythingsmarthome.github.io/firmware/est-esp32-c6-devkit-gpios-manifest.json" }
-                ],
-                "EverythingPresenceOne": {
+        const products = [
+            {
+                id: "EST-PoE-32",
+                name: "EST-PoE-32",
+                tag: "ESP32 · Ethernet + PoE",
+                description: "Wired deployments with ESPHome and PoE power.",
+                image: "est-poe-32-devkit.jpg",
+                options: [
+                    { name: "Bluetooth Proxy", description: "Ethernet-based Bluetooth Proxy for Home Assistant.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-PoE-32/ESPHome/est-poe-32-bluetooth-proxy.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-poe-32-bluetooth-proxy-manifest.json" },
+                    { name: "Input/Output", description: "Exposes spare GPIOs as switches or binary sensors.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-PoE-32/ESPHome/est-poe-32-all-gpios.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-poe-32-all-gpios-manifest.json" },
+                    { name: "GPIO Expander", description: "Demonstrates using the PCF8575 I/O expander over I2C.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-PoE-32/ESPHome/est-poe-32-gpio-expander.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-poe-32-gpio-expander-manifest.json" }
+                ]
+            },
+            {
+                id: "EST-ESP32-DevKit",
+                name: "EST-ESP32-DevKit",
+                tag: "ESP32 · Wi-Fi",
+                description: "General-purpose ESP32 for rapid prototyping.",
+                image: "est-esp32-devkit.jpg",
+                options: [
+                    { name: "Bluetooth Proxy", description: "Simple BLE proxy over Wi-Fi for Home Assistant.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-ESP32-DevKit/ESPHome/est-esp32-devkit-bluetooth-proxy.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-esp32-devkit-bluetooth-proxy-manifest.json" },
+                    { name: "Input/Output", description: "All spare GPIOs exposed as switches/binary sensors.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-ESP32-DevKit/ESPHome/est-esp32-devkit-all-gpios.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-esp32-devkit-gpios-manifest.json" }
+                ]
+            },
+            {
+                id: "EST-ESP32-C6-DevKit",
+                name: "EST-ESP32-C6-DevKit",
+                tag: "ESP32-C6 · Wi-Fi 6",
+                description: "Wi-Fi 6 dev kit with GPIO example firmware.",
+                image: "est-esp32-c6-devkit.jpg",
+                options: [
+                    { name: "Input/Output", description: "GPIOs exposed as switches/binary sensors.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-ESP32-C6-DevKit/ESPHome/est-esp32-c6-devkit-all-gpios.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-esp32-c6-devkit-gpios-manifest.json" }
+                ]
+            },
+            {
+                id: "EST-ESP32-S3-DevKit",
+                name: "EST-ESP32-S3-DevKit",
+                tag: "ESP32-S3 · BLE + USB",
+                description: "BLE proxy and GPIO starter profiles for the S3.",
+                image: "est-esp32-s3-devkit.jpg",
+                options: [
+                    { name: "Bluetooth Proxy", description: "BLE proxy over Wi-Fi using ESP-IDF.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-ESP32-S3-DevKit/ESPHome/est-esp32-s3-devkit-bluetooth-proxy.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-esp32-s3-devkit-bluetooth-proxy-manifest.json" },
+                    { name: "Input/Output", description: "Common GPIOs exposed as switches/binary sensors.", configUrl: "https://github.com/EverythingSmartHome/firmware/blob/main/EST-ESP32-S3-DevKit/ESPHome/est-esp32-s3-devkit-all-gpios.yaml", manifest: "https://everythingsmarthome.github.io/firmware/est-esp32-s3-devkit-gpios-manifest.json" }
+                ]
+            },
+            {
+                id: "EverythingPresenceOne",
+                name: "Everything Presence One",
+                tag: "Presence · Multi-sensor",
+                description: "Pick Home Assistant or SmartThings builds.",
+                image: "everything-presence-one.png",
+                platforms: {
                     "Home Assistant": [
-                        { name: "Stable", description: "Stable firmware for the Everything Presence One to integrate directly with Home Assistant.", configUrl: "https://github.com/EverythingSmartHome/everything-presence-one/blob/main/everything-presence-one.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-one/everything-presence-one-manifest.json" },
-                        { name: "Beta", description: "Beta firmware for the Everything Presence One to integrate directly with Home Assistant. Only use if you don't mind some bugs but want the latest features", configUrl: "https://github.com/EverythingSmartHome/everything-presence-one/blob/main/everything-presence-one-beta.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-one/everything-presence-one-ha-beta-manifest.json" }
+                        { name: "Stable", description: "Stable firmware for Home Assistant integration.", configUrl: "https://github.com/EverythingSmartHome/everything-presence-one/blob/main/everything-presence-one.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-one/everything-presence-one-manifest.json" },
+                        { name: "Beta", description: "Latest features, may include minor bugs.", configUrl: "https://github.com/EverythingSmartHome/everything-presence-one/blob/main/everything-presence-one-beta.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-one/everything-presence-one-ha-beta-manifest.json" }
                     ],
                     "SmartThings": [
-                        { name: "Stable", description: "Stable firmware for the Everything Presence One to integrate directly with SmartThings.", configUrl: "https://github.com/EverythingSmartHome/everything-presence-one/blob/main/everything-presence-one-st.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-one/everything-presence-one-st-manifest.json" }
-                    ]
-                },
-                "EverythingPresenceLite": {
-                    "Home Assistant": [
-                        { name: "Stable (Bluetooth Proxy)", description: "Choose this option to enable Bluetooth Proxy and Improv. Can cause connectivity issues with WiFi.", configUrl: "https://github.com/EverythingSmartHome/everything-presence-lite/blob/main/everything-presence-lite-ha.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-lite/everything-presence-lite-ha-manifest.json" },
-                        { name: "Stable (No Bluetooth)", description: "Choose this option to disable Bluetooth Proxy and Improv, which can improve stability of the WiFi connection and/or you don't need Bluetooth Proxy.", configUrl: "https://github.com/EverythingSmartHome/everything-presence-lite/blob/main/everything-presence-lite-ha-no-ble.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-lite/everything-presence-lite-ha-no-ble-manifest.json" }
+                        { name: "Stable", description: "Stable firmware for SmartThings integration.", configUrl: "https://github.com/EverythingSmartHome/everything-presence-one/blob/main/everything-presence-one-st.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-one/everything-presence-one-st-manifest.json" }
                     ]
                 }
-            };
-
-            function handlePlatformAndFirmwareSelection(container, radio) {
-                container.querySelectorAll('label').forEach(label => label.classList.remove('selected'));
-                const selectedLabel = radio.parentElement;
-                selectedLabel.classList.add('selected');
+            },
+            {
+                id: "EverythingPresenceLite",
+                name: "Everything Presence Lite",
+                tag: "Presence · Compact",
+                description: "Home Assistant builds with or without BLE proxy.",
+                image: "everything-presence-lite.jpg",
+                platforms: {
+                    "Home Assistant": [
+                        { name: "Stable (Bluetooth Proxy)", description: "Enables BLE proxy and Improv Wi-Fi.", configUrl: "https://github.com/EverythingSmartHome/everything-presence-lite/blob/main/everything-presence-lite-ha.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-lite/everything-presence-lite-ha-manifest.json" },
+                        { name: "Stable (No Bluetooth)", description: "Disables BLE proxy for improved Wi-Fi stability.", configUrl: "https://github.com/EverythingSmartHome/everything-presence-lite/blob/main/everything-presence-lite-ha-no-ble.yaml", manifest: "https://everythingsmarthome.github.io/everything-presence-lite/everything-presence-lite-ha-no-ble-manifest.json" }
+                    ]
+                }
             }
+        ];
 
-            document.querySelectorAll('.product input[type="radio"]').forEach(radio => {
-                radio.addEventListener("change", function () {
-                    const selectedProduct = this.value;
-                    const platformContainer = document.getElementById("platformOptions");
-                    const firmwareContainer = document.getElementById("firmwareOptions");
-                    const installButton = document.querySelector("esp-web-install-button");
+        const productGrid = document.getElementById('productGrid');
+        const platformPanel = document.getElementById('platformPanel');
+        const platformOptions = document.getElementById('platformOptions');
+        const firmwarePanel = document.getElementById('firmwarePanel');
+        const firmwareOptions = document.getElementById('firmwareOptions');
+        const installButton = document.querySelector('esp-web-install-button');
 
-                    platformContainer.innerHTML = '<div class="question-prompt">Now select the platform:</div>';
-                    firmwareContainer.innerHTML = '';
-                    platformContainer.classList.add("hidden");
-                    firmwareContainer.classList.add("hidden");
-                    installButton.classList.add("hidden");
+        function resetPanels() {
+            platformPanel.classList.add('hidden');
+            firmwarePanel.classList.add('hidden');
+            platformOptions.innerHTML = '';
+            firmwareOptions.innerHTML = '';
+            installButton.classList.add('hidden');
+        }
 
-                    // Check if the selected product has platform options
-                    if (typeof firmwareOptions[selectedProduct] === 'object' && !Array.isArray(firmwareOptions[selectedProduct])) {
-                        Object.keys(firmwareOptions[selectedProduct]).forEach(platform => {
-                            // Create and append platform options
-                            const platformLabel = document.createElement('label');
-                            const platformRadio = document.createElement('input');
-                            platformRadio.type = 'radio';
-                            platformRadio.name = 'platform';
-                            platformRadio.id = platform;
-                            platformRadio.value = platform;
-                            platformLabel.setAttribute('for', platform);
-                            platformLabel.textContent = platform;
-                            platformLabel.insertBefore(platformRadio, platformLabel.firstChild);
+        function createProductCards() {
+            products.forEach((product) => {
+                const card = document.createElement('label');
+                card.classList.add('card');
+                card.setAttribute('for', product.id);
 
-                            platformLabel.addEventListener("click", function () {
-                                // When a platform is selected, populate firmware options
-                                platformRadio.checked = true;
-                                handlePlatformAndFirmwareSelection(platformContainer, platformRadio);
-                                populateFirmwareOptions(selectedProduct, platform);
-                            });
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'product';
+                input.id = product.id;
+                input.value = product.id;
 
-                            platformContainer.appendChild(platformLabel);
-                        });
-                        platformContainer.classList.remove("hidden");
-                    } else if (Array.isArray(firmwareOptions[selectedProduct])) {
-                        populateFirmwareOptions(selectedProduct);
-                    }
+                const img = document.createElement('img');
+                img.classList.add('thumb');
+                if (product.image) {
+                    img.src = product.image;
+                    img.alt = product.name;
+                } else {
+                    img.alt = `${product.name} placeholder`;
+                    img.style.background = 'linear-gradient(135deg, rgba(124, 231, 177, 0.25), rgba(90, 182, 255, 0.25))';
+                    img.style.border = '1px dashed var(--border)';
+                }
+
+                const title = document.createElement('h3');
+                title.textContent = product.name;
+
+                const meta = document.createElement('p');
+                meta.classList.add('meta');
+                meta.textContent = product.tag;
+
+                const desc = document.createElement('p');
+                desc.classList.add('meta');
+                desc.textContent = product.description;
+
+                card.appendChild(input);
+                card.appendChild(img);
+                card.appendChild(title);
+                card.appendChild(meta);
+                card.appendChild(desc);
+
+                card.addEventListener('click', () => {
+                    document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    handleProductSelection(product);
                 });
+
+                productGrid.appendChild(card);
             });
+        }
 
-            function populateFirmwareOptions(product, platform = null) {
-                const firmwareContainer = document.getElementById("firmwareOptions");
-                const installButton = document.querySelector("esp-web-install-button");
-                firmwareContainer.innerHTML = '<div class="question-prompt">Now select the firmware:</div>';
-                firmwareContainer.classList.remove("hidden");
-                installButton.classList.add("hidden");
+        function renderPlatformOptions(product) {
+            platformOptions.innerHTML = '';
+            const platforms = Object.keys(product.platforms);
+            platforms.forEach((platform) => {
+                const option = document.createElement('div');
+                option.classList.add('option');
 
-                let options = platform ? firmwareOptions[product][platform] : firmwareOptions[product];
-                options.forEach(option => {
-                    const firmwareLabel = document.createElement('label');
-                    const firmwareRadio = document.createElement('input');
-                    firmwareRadio.type = 'radio';
-                    firmwareRadio.name = 'firmware';
-                    firmwareRadio.id = option.name;
-                    firmwareRadio.value = option.manifest;
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'platform';
+                input.id = platform;
+                input.value = platform;
 
-                    const nameDiv = document.createElement('div');
-                    nameDiv.classList.add('label-name');
-                    nameDiv.textContent = option.name;
+                const label = document.createElement('div');
+                const strong = document.createElement('strong');
+                strong.textContent = platform;
+                const muted = document.createElement('span');
+                muted.textContent = `Firmware options for ${platform}`;
+                label.appendChild(strong);
+                label.appendChild(muted);
 
-                    const descDiv = document.createElement('div');
-                    descDiv.classList.add('label-description');
-                    descDiv.textContent = option.description;
+                option.appendChild(input);
+                option.appendChild(label);
 
-                    const configLink = document.createElement('a');
-                    configLink.href = option.configUrl;
-                    configLink.textContent = 'View Config';
-                    configLink.target = '_blank';
-                    configLink.classList.add('config-link');
-
-                    firmwareLabel.appendChild(firmwareRadio);
-                    firmwareLabel.appendChild(nameDiv);
-                    firmwareLabel.appendChild(descDiv);
-                    firmwareLabel.appendChild(configLink);
-
-                    firmwareLabel.addEventListener("click", function () {
-                        firmwareRadio.checked = true;
-                        handlePlatformAndFirmwareSelection(firmwareContainer, firmwareRadio);
-                        installButton.setAttribute("manifest", option.manifest);
-                        installButton.classList.remove("hidden");
-                    });
-
-                    firmwareContainer.appendChild(firmwareLabel);
+                option.addEventListener('click', () => {
+                    document.querySelectorAll('#platformOptions .option').forEach(el => el.classList.remove('selected'));
+                    option.classList.add('selected');
+                    input.checked = true;
+                    populateFirmwareOptions(product, platform);
                 });
+
+                platformOptions.appendChild(option);
+            });
+            platformPanel.classList.remove('hidden');
+        }
+
+        function populateFirmwareOptions(product, platform = null) {
+            firmwareOptions.innerHTML = '';
+            const options = platform ? product.platforms[platform] : product.options;
+            options.forEach((option) => {
+                const row = document.createElement('div');
+                row.classList.add('option');
+
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'firmware';
+                input.id = option.name;
+                input.value = option.manifest;
+
+                const info = document.createElement('div');
+                const title = document.createElement('strong');
+                title.textContent = option.name;
+                const desc = document.createElement('span');
+                desc.textContent = option.description;
+                const link = document.createElement('a');
+                link.href = option.configUrl;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.textContent = 'View config on GitHub';
+
+                info.appendChild(title);
+                info.appendChild(desc);
+                info.appendChild(link);
+
+                row.appendChild(input);
+                row.appendChild(info);
+
+                row.addEventListener('click', () => {
+                    document.querySelectorAll('#firmwareOptions .option').forEach(el => el.classList.remove('selected'));
+                    row.classList.add('selected');
+                    input.checked = true;
+                    installButton.setAttribute('manifest', option.manifest);
+                    installButton.classList.remove('hidden');
+                });
+
+                firmwareOptions.appendChild(row);
+            });
+            firmwarePanel.classList.remove('hidden');
+        }
+
+        function handleProductSelection(product) {
+            resetPanels();
+            if (product.platforms) {
+                renderPlatformOptions(product);
+            } else if (product.options) {
+                populateFirmwareOptions(product);
             }
-        });
+        }
+
+        createProductCards();
     </script>
 </body>
 
