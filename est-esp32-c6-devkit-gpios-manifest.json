@@ -1,18 +1,21 @@
 {
-  "chipFamily": "ESP32-C6",
-  "ota": {
-    "path": "est-esp32-c6-esp32c6.ota.bin",
-    "md5": "63685119f4cd003ea97982c3d3b9c2ba"
-  },
-  "parts": [
-    {
-      "path": "est-esp32-c6-esp32c6.factory.bin",
-      "offset": 0
-    }
-  ],
   "name": "EST-ESP32-C6-DevKit all GPIOs",
   "version": "",
   "home_assistant_domain": "esphome",
-  "new_install_skip_erase": false,
-  "builds": []
+  "new_install_prompt_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP32-C6",
+      "parts": [
+        {
+          "path": "est-esp32-c6-devkit-gpios/est-esp32-c6-esp32c6.factory.bin",
+          "offset": 0
+        }
+      ],
+      "ota": {
+        "path": "est-esp32-c6-devkit-gpios/est-esp32-c6-esp32c6.ota.bin",
+        "md5": "52c47b7f7bd015d0ae4e625ade6e0a9a"
+      }
+    }
+  ]
 }
