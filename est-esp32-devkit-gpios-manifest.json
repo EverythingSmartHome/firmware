@@ -1,21 +1,18 @@
 {
+  "chipFamily": "ESP32",
+  "ota": {
+    "path": "est-esp32-devkit-esp32.ota.bin",
+    "md5": "b493a7ead7bbe1677d7127d803c9213b"
+  },
+  "parts": [
+    {
+      "path": "est-esp32-devkit-esp32.factory.bin",
+      "offset": 0
+    }
+  ],
   "name": "EST-ESP32-DevKit all GPIOs",
   "version": "",
   "home_assistant_domain": "esphome",
   "new_install_skip_erase": false,
-  "builds": [
-    {
-      "chipFamily": "ESP32",
-      "ota": {
-        "path": "est-esp32-devkit-esp32.ota.bin",
-        "md5": "8c712a864b4b539f58b8b1d3834a4988"
-      },
-      "parts": [
-        {
-          "path": "est-esp32-devkit-esp32.factory.bin",
-          "offset": 0
-        }
-      ]
-    }
-  ]
+  "builds": []
 }
