@@ -1,0 +1,86 @@
+esphome:
+  name: est-esp32-s3-devkit
+  friendly_name: EST-ESP32-S3
+
+esp32:
+  board: esp32-s3-devkitc-1
+  variant: esp32s3
+  framework:
+    type: esp-idf
+
+logger:
+
+api:
+
+ota:
+  - platform: esphome
+
+wifi:
+  ap:
+    ssid: "EST-ESP32-S3 Fallback"
+    password: "xSrySgkPJcV8"
+
+captive_portal:
+
+binary_sensor:
+  - platform: gpio
+    name: "Pin 15 Input"
+    pin:
+      number: 15
+      mode: input
+  - platform: gpio
+    name: "Pin 16 Input"
+    pin:
+      number: 16
+      mode: input
+  - platform: gpio
+    name: "Pin 17 Input"
+    pin:
+      number: 17
+      mode: input
+  - platform: gpio
+    name: "Pin 18 Input"
+    pin:
+      number: 18
+      mode: input
+
+switch:
+  - platform: gpio
+    name: "Pin 1"
+    pin: 1
+  - platform: gpio
+    name: "Pin 2"
+    pin: 2
+  - platform: gpio
+    name: "Pin 4"
+    pin: 4
+  - platform: gpio
+    name: "Pin 5"
+    pin: 5
+  - platform: gpio
+    name: "Pin 6"
+    pin: 6
+  - platform: gpio
+    name: "Pin 7"
+    pin: 7
+  - platform: gpio
+    name: "Pin 8"
+    pin: 8
+  - platform: gpio
+    name: "Pin 9"
+    pin: 9
+  - platform: gpio
+    name: "Pin 10"
+    pin: 10
+  - platform: gpio
+    name: "Pin 11"
+    pin: 11
+  - platform: gpio
+    name: "Pin 12"
+    pin: 12
+  - platform: gpio
+    name: "Pin 13"
+    pin: 13
+  - platform: gpio
+    name: "Pin 14"
+    pin: 14

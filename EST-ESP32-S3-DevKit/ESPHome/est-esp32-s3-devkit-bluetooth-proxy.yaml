@@ -1,0 +1,30 @@
+esphome:
+  name: est-esp32-s3-devkit
+  friendly_name: EST-ESP32-S3
+
+esp32:
+  board: esp32-s3-devkitc-1
+  variant: esp32s3
+  framework:
+    type: esp-idf
+
+logger:
+
+api:
+
+ota:
+  - platform: esphome
+
+wifi:
+  ap:
+    ssid: "EST-ESP32-S3 Fallback"
+    password: "xSrySgkPJcV8"
+
+captive_portal:
+
+esp32_ble_tracker:
+  scan_parameters:
+    active: true
+
+bluetooth_proxy:
+  active: true
