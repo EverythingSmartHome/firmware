@@ -2,7 +2,7 @@
   "chipFamily": "ESP32-S3",
   "ota": {
     "path": "est-esp32-s3-devkit-esp32s3.ota.bin",
-    "md5": "572dc55db200c3303520b71bddb0ca06"
+    "md5": "2c428fc1259d1875ed26de7454bdbd73"
   },
   "parts": [
     {
