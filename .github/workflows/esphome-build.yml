@@ -79,16 +79,43 @@ jobs:
       - name: Create single manifest.json
         run: |
           MANIFEST=$(ls output/*/manifest.json | head -n 1)
-          jq --arg name "${{ inputs.name }}" --arg dir "${{ inputs.directory_name }}/" '
+
+          jq --arg name "${{ inputs.name }}" \
+            --arg dir  "${{ inputs.directory_name }}/" '
+            def prefix($dir):
+              if . == null then .
+              elif (type != "string") then .
+              elif test("^(https?://|/)") then .
+              elif startswith($dir) then .
+              else ($dir + .)
+              end;
+
             .name = $name
             | .version = (.version // "")
             | .home_assistant_domain = "esphome"
-            | .new_install_skip_erase = false
-            | .builds = ((.builds // []) | map(
-                .ota |= (. // {} | .path |= ($dir + (. // "")))
-                | .parts |= ((. // []) | map(.path |= ($dir + (. // ""))))
-              ))
+            # prefer the newer key (skip_erase is deprecated but still accepted)
+            | .new_install_prompt_erase = false
+            | del(.new_install_skip_erase)
+
+            | if ((.builds? // []) | length) > 0 then .
+              else
+                .builds = [
+                  {
+                    chipFamily: (.chipFamily // error("chipFamily missing")),
+                    parts: (.parts // []),
+                    ota: (.ota // empty)
+                  }
+                ]
+              end
+
+            | .builds |= map(
+                (if (.ota? and .ota.path?) then .ota.path |= prefix($dir) else . end)
+                | (.parts |= ((.parts // []) | map(if .path? then .path |= prefix($dir) else . end)))
+              )
+
+            | del(.chipFamily, .parts, .ota)
           ' "$MANIFEST" > output/${{ inputs.manifest_filename }}
+
 
       - run: cp -R static/* output
 
