@@ -1,0 +1,18 @@
+{
+  "chipFamily": "ESP32-C6",
+  "ota": {
+    "path": "est-esp32-c6-devkit-esp32c6.ota.bin",
+    "md5": "9582c6a93a861650d0f729d917b98547"
+  },
+  "parts": [
+    {
+      "path": "est-esp32-c6-devkit-esp32c6.factory.bin",
+      "offset": 0
+    }
+  ],
+  "name": "EST-ESP32-C6-DevKit Bluetooth Proxy",
+  "version": "",
+  "home_assistant_domain": "esphome",
+  "new_install_skip_erase": false,
+  "builds": []
+}
