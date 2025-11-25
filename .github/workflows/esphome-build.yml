@@ -49,9 +49,6 @@ jobs:
     strategy:
       matrix:
         file: ${{ fromJson(needs.prepare.outputs.files) }}
-    outputs:
-      esphome-version: ${{ steps.esphome-build.outputs.esphome-version }}
-      esphome-build-name: ${{ steps.esphome-build.outputs.name}}
     steps:
       - uses: actions/checkout@v4
       - uses: esphome/build-action@v6
@@ -81,13 +78,23 @@ jobs:
 
       - name: Create single manifest.json
         run: |
-          jq -s '{"name": "${{ inputs.name }}", "version": "${{ needs.build.outputs.esphome-version }}", "home_assistant_domain": "esphome", "new_install_skip_erase": false, "builds":.}' output/*/manifest.json > output/${{ inputs.manifest_filename }}
-          sed -i 's/${{ needs.build.outputs.esphome-build-name }}\//${{ inputs.directory_name }}\//g' output/${{ inputs.manifest_filename }}
-
+          jq -s --arg name "${{ inputs.name }}" --arg dir "${{ inputs.directory_name }}/" '
+            {
+              "name": $name,
+              "version": (.[0][0].version // ""),
+              "home_assistant_domain": "esphome",
+              "new_install_skip_erase": false,
+              "builds":
+                (.[] | map(
+                  .ota.path = ($dir + .ota.path)
+                  | .parts = (.parts | map(.path = ($dir + .path)))
+                ))
+            }
+          ' output/*/manifest.json > output/${{ inputs.manifest_filename }}
 
       - run: cp -R static/* output
 
-      - name: Deploy 🚀
+      - name: Deploy ĐYs?
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages

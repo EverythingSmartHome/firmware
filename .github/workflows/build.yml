@@ -74,6 +74,16 @@ jobs:
       clean: false
       esphome_version: latest
       directory_name: est-esp32-c6-devkit-gpios
+  publish-est-esp32-c6-devkit-bluetooth-proxy:
+    name: Publish EST-ESP32-C6-DevKit Bluetooth Proxy
+    uses: EverythingSmartHome/firmware/.github/workflows/esphome-build.yml@main
+    with:
+      files: EST-ESP32-C6-DevKit/ESPHome/est-esp32-c6-devkit-bluetooth-proxy.yaml
+      name: EST-ESP32-C6-DevKit Bluetooth Proxy
+      manifest_filename: est-esp32-c6-devkit-bluetooth-proxy-manifest.json
+      clean: false
+      esphome_version: latest
+      directory_name: est-esp32-c6-devkit-bluetooth-proxy
   publish-est-esp32-s3-devkit-bluetooth-proxy:
     name: Publish EST-ESP32-S3-DevKit Bluetooth Proxy
     uses: EverythingSmartHome/firmware/.github/workflows/esphome-build.yml@main
@@ -100,7 +110,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: [publish-est-poe-32-bluetooth-proxy, publish-est-poe-32-all-gpios, publish-est-esp32-devkit-bluetooth-proxy, publish-est-esp32-devkit-all-gpios, publish-est-esp32-c6-devkit-all-gpios, publish-est-esp32-s3-devkit-bluetooth-proxy, publish-est-esp32-s3-devkit-all-gpios]
+    needs: [publish-est-poe-32-bluetooth-proxy, publish-est-poe-32-all-gpios, publish-est-esp32-devkit-bluetooth-proxy, publish-est-esp32-devkit-all-gpios, publish-est-esp32-c6-devkit-all-gpios, publish-est-esp32-c6-devkit-bluetooth-proxy, publish-est-esp32-s3-devkit-bluetooth-proxy, publish-est-esp32-s3-devkit-all-gpios]
     steps:
       - name: Checkout gh-pages Branch
         uses: actions/checkout@v4

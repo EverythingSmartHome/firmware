@@ -1,0 +1,30 @@
+esphome:
+  name: est-esp32-c6-devkit
+  friendly_name: EST-ESP32-C6
+
+esp32:
+  board: esp32-c6-devkitc-1
+  variant: esp32c6
+  framework:
+    type: esp-idf
+
+logger:
+
+api:
+
+ota:
+  - platform: esphome
+
+wifi:
+  ap:
+    ssid: "EST-ESP32-C6 Fallback"
+    password: "qPFxTRV3jEH2"
+
+captive_portal:
+
+esp32_ble_tracker:
+  scan_parameters:
+    active: true
+
+bluetooth_proxy:
+  active: true
