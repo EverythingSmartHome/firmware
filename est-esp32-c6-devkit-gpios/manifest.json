@@ -2,7 +2,7 @@
   "chipFamily": "ESP32-C6",
   "ota": {
     "path": "est-esp32-c6-esp32c6.ota.bin",
-    "md5": "837d5e5eff1205e9a5daed26a462be60"
+    "md5": "63685119f4cd003ea97982c3d3b9c2ba"
   },
   "parts": [
     {
