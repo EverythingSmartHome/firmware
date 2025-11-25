@@ -90,6 +90,12 @@ jobs:
               else ($dir + .)
               end;
 
+            def ensure_array(val):
+              if val == null then []
+              elif (val | type) == "array" then val
+              else [val]
+              end;
+
             .name = $name
             | .version = (.version // "")
             | .home_assistant_domain = "esphome"
@@ -101,16 +107,17 @@ jobs:
               else
                 .builds = [
                   {
-                    chipFamily: (.chipFamily // error("chipFamily missing")),
+                    chipFamily: (.chipFamily // .chip_family // .chip_family_name // error("chipFamily missing")),
                     parts: (.parts // []),
-                    ota: (.ota // empty)
+                    ota: (.ota // {})
                   }
                 ]
               end
 
             | .builds |= map(
-                (if (.ota? and .ota.path?) then .ota.path |= prefix($dir) else . end)
-                | (.parts |= ((.parts // []) | map(if .path? then .path |= prefix($dir) else . end)))
+                .chipFamily = (.chipFamily // .chip_family // .chip_family_name // "ESP32")
+                | (if (.ota? and (.ota | type == "object") and .ota.path?) then .ota.path |= prefix($dir) else .ota = ({} // .ota) end)
+                | (.parts = (ensure_array(.parts) | map(if (. | type == "object" and .path?) then .path |= prefix($dir) else . end)))
               )
 
             | del(.chipFamily, .parts, .ota)
