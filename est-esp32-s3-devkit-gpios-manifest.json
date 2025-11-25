@@ -1,21 +1,18 @@
 {
+  "chipFamily": "ESP32-S3",
+  "ota": {
+    "path": "est-esp32-s3-devkit-esp32s3.ota.bin",
+    "md5": "572dc55db200c3303520b71bddb0ca06"
+  },
+  "parts": [
+    {
+      "path": "est-esp32-s3-devkit-esp32s3.factory.bin",
+      "offset": 0
+    }
+  ],
   "name": "EST-ESP32-S3-DevKit all GPIOs",
   "version": "",
   "home_assistant_domain": "esphome",
   "new_install_skip_erase": false,
-  "builds": [
-    {
-      "chipFamily": "ESP32-S3",
-      "ota": {
-        "path": "est-esp32-s3-devkit-esp32s3.ota.bin",
-        "md5": "246274388a9ef0362918ffe0651af3b3"
-      },
-      "parts": [
-        {
-          "path": "est-esp32-s3-devkit-esp32s3.factory.bin",
-          "offset": 0
-        }
-      ]
-    }
-  ]
+  "builds": []
 }
