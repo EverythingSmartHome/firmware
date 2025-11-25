@@ -1,18 +1,21 @@
 {
-  "chipFamily": "ESP32",
-  "ota": {
-    "path": "est-esp32-devkit-esp32.ota.bin",
-    "md5": "ff70497a71d733dfdafaec747dd4aedd"
-  },
-  "parts": [
-    {
-      "path": "est-esp32-devkit-esp32.factory.bin",
-      "offset": 0
-    }
-  ],
   "name": "EST-ESP32-DevKit Bluetooth Proxy",
   "version": "",
   "home_assistant_domain": "esphome",
-  "new_install_skip_erase": false,
-  "builds": []
+  "new_install_prompt_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        {
+          "path": "est-esp32-devkit-bluetooth-proxy/est-esp32-devkit-esp32.factory.bin",
+          "offset": 0
+        }
+      ],
+      "ota": {
+        "path": "est-esp32-devkit-bluetooth-proxy/est-esp32-devkit-esp32.ota.bin",
+        "md5": "230430431a8083ebb89a8356fb714f92"
+      }
+    }
+  ]
 }
